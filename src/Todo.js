@@ -1,11 +1,11 @@
 class ToDo {
-	constructor(title, description, description, dueDate, priority, isCComplete = false) {
+	constructor({ title, description, dueDate, priority, isComplete = false }) {
 		this.id = crypto.randomUUID();
 		this.title = title;
 		this.description = description;
 		this.dueDate = dueDate;
 		this.priority = priority;
-		this.isCComplete = isCComplete;
+		this.isComplete = isComplete;
 	}
 }
 

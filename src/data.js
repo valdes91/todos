@@ -1,4 +1,4 @@
-import Project from './Project';
+import Project from './Project.js';
 
 class StorageManager {
 	static getProjects() {
@@ -35,6 +35,14 @@ class DataManager {
 
 	findProjectById(projectId) {
 		return this.projects.find((proj) => proj.id === projectId);
+	}
+
+	findTodoById(projectId, todoId) {
+		const project = this.findProjectById(projectId);
+		if (project) {
+			return project.todos.find((todo) => todo.id === todoId);
+		}
+		return null;
 	}
 
 	addProject(project) {
