@@ -1,0 +1,90 @@
+:root {
+	--primary-color: #37353e;
+	--secondary-color: #715a5a;
+	--text-color: #d3dad9;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	border: 1px solid black;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	font-family: 'Roboto', sans-serif;
+}
+
+html,
+body {
+	height: 100%;
+	text-align: center;
+}
+
+body {
+	grid-template-rows: auto 1fr;
+}
+
+.p1 {
+	padding: 1rem;
+}
+
+.p05 {
+	padding: 0.5rem;
+}
+
+.px-1 {
+	padding-left: 1rem;
+	padding-right: 1rem;
+}
+
+.py-1 {
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+
+.px-05 {
+	padding-left: 0.5rem;
+	padding-right: 0.5rem;
+}
+
+.py-05 {
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+}
+
+.container {
+	grid-template-columns: auto 1fr;
+	height: 100%;
+}
+
+.main-content {
+	grid-template-rows: auto 1fr;
+	height: 100%;
+}
+
+.grid {
+	display: grid;
+}
+
+.project-bar {
+	min-width: 200px;
+}
+
+.project-todos {
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	grid-auto-rows: min-content;
+	gap: 1rem;
+	overflow-y: auto;
+}
+
+.todo {
+	height: min-content;
+}
+
+li {
+	list-style-type: none;
+	cursor: pointer;
+}
