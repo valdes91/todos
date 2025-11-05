@@ -89,7 +89,7 @@ body {
 }
 
 .project-bar {
-	min-width: 200px;
+	min-width: 250px;
 	flex-direction: column;
 	height: 100%;
 	min-height: 0;
@@ -136,4 +136,5 @@ button {
 li {
 	list-style-type: none;
 	cursor: pointer;
+	border-bottom: gray 1px solid;
 }

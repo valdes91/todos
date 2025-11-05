@@ -6,6 +6,10 @@ class ProjectController {
 		this.dataManager = dataManager;
 	}
 
+	getAllProjects() {
+		return this.dataManager.getProjects();
+	}
+
 	createProject(projectName) {
 		const newProject = new Project(projectName);
 		this.dataManager.addProject(newProject);
