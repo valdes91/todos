@@ -15,49 +15,40 @@
 				<ul class="project-list"></ul>
 			</div>
 			<div class="main-content grid">
-				<div class="project-control flex">
-					<h2 class="py-1">Todos</h2>
+				<div class="project-control flex py-1">
+					<h2></h2>
 					<button id="show-add-task-dialog" class="py-05 px-1">Add Task</button>
 				</div>
-				<div class="project-todos grid p1">
-					<!-- <div class="todo p05">
-						<h3 class="py-05">Test To Do</h3>
-						<p class="py-05">
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.
-						</p>
-						<p class="py-05">Due 10/31/25</p>
-						<p class="py-05">Priority: High</p>
-						<div class="completed py-05">
-							<label for="completed">Completed</label>
-							<input type="checkbox" name="completed" id="completed" />
-						</div>
-					</div> -->
-					<!-- <div class="todo p05">
-						<h3 class="py-05">Test To Do</h3>
-						<p class="py-05">
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.
-						</p>
-						<p class="py-05">Due 10/31/25</p>
-						<p class="py-05">Priority: High</p>
-						<div class="completed py-05">
-							<label for="completed">Completed</label>
-							<input type="checkbox" name="completed" id="completed" />
-						</div>
-					</div> -->
-					<!-- <div class="todo p05">
-						<h3 class="py-05">Test To Do</h3>
-						<p class="py-05">
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.
-						</p>
-						<p class="py-05">Due 10/31/25</p>
-						<p class="py-05">Priority: High</p>
-						<div class="completed py-05">
-							<label for="completed">Completed</label>
-							<input type="checkbox" name="completed" id="completed" />
-						</div>
-					</div> -->
-				</div>
+				<div class="project-todos grid p1"></div>
 			</div>
+			<dialog class="dialog" id="add-todo-dialog">
+				<form method="dialog" class="p1" id="add-todo-form">
+					<div class="flex column py-05">
+						<label for="title">Title</label>
+						<input type="text" id="title" name="title" required />
+					</div>
+					<div class="flex column py-05">
+						<label for="description">Description</label>
+						<textarea name="description" id="description" cols="30" rows="5" required></textarea>
+					</div>
+					<div class="flex column py-05">
+						<label for="dueDate">Due Date</label>
+						<input type="date" id="dueDate" name="dueDate" required />
+					</div>
+					<div class="flex column py-05">
+						<label for="priority">Priority</label>
+						<select id="priority" name="priority" default="medium">
+							<option value="low">Low</option>
+							<option value="medium">Medium</option>
+							<option value="high">High</option>
+						</select>
+					</div>
+					<div class="flex py-1 form-btns">
+						<button type="submit" class="px-1 py-05" value="submit" id="save-todo">Add Todo</button>
+						<button type="button" id="cancel-todo" class="px-1 py-05" value="cancel">Cancel</button>
+					</div>
+				</form>
+			</dialog>
 		</div>
 	</body>
 </html>

@@ -23,7 +23,6 @@ class ProjectController {
 	addTodoToProject(projectId, todoObj) {
 		const newTodo = new ToDo(todoObj);
 		this.dataManager.addTodoToProject(projectId, newTodo);
-		return newTodo;
 	}
 
 	// make sure updatedTodoObj contains the id of the todo to be updated from DOM controller

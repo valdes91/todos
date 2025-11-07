@@ -120,7 +120,7 @@ button {
 }
 
 .project-todos {
-	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	grid-template-columns: 1fr;
 	grid-auto-rows: min-content;
 	min-height: 0;
 	gap: 1rem;
@@ -137,4 +137,28 @@ li {
 	list-style-type: none;
 	cursor: pointer;
 	border-bottom: gray 1px solid;
+}
+
+.dialog {
+	margin: auto;
+	border-radius: 25px;
+}
+
+.form-btns {
+	justify-content: space-between;
+}
+
+input[type='text'],
+input[type='date'],
+textarea {
+	padding-top: 0.25rem;
+	padding-bottom: 0.25rem;
+	padding-left: 0.5rem;
+	padding-right: 0.5rem;
+	border-radius: 10px;
+}
+
+label {
+	align-self: flex-start;
+	padding-bottom: 0.25rem;
 }
