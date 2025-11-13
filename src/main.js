@@ -79,6 +79,9 @@ const projectHeader = projectControlElement.querySelector('h2');
 const addTodoDialog = document.querySelector('#add-todo-dialog');
 const addTodoForm = document.querySelector('#add-todo-form');
 const cancelAddTodoBtn = document.querySelector('#cancel-todo');
+const addProjectDialog = document.querySelector('#add-project-dialog');
+const addProjectForm = document.querySelector('#add-project-form');
+const cancelProjectBtn = document.querySelector('#cancel-project');
 
 projectListElement.addEventListener('click', (e) => {
 	const projectId = e.target.dataset.projectId;
@@ -108,10 +111,37 @@ addTodoForm.addEventListener('submit', (e) => {
 	}
 });
 
+cancelProjectBtn.addEventListener('click', (e) => {
+	addProjectDialog.close();
+});
+
+addProjectDialog.addEventListener('close', () => {
+	addProjectForm.reset();
+});
+
+addProjectForm.addEventListener('submit', (e) => {
+	const clickedBtn = e.submitter;
+
+	if (clickedBtn.id === 'save-project') {
+		// form submission closes the dialog by default
+		e.preventDefault();
+		const formData = new FormData(addProjectForm);
+		const projectName = formData.get('projectName');
+		const newProject = projectController.createProject(projectName);
+		renderProjectList();
+		renderProjectTodos(newProject.id);
+		addProjectDialog.close();
+	}
+});
+
 addTaskButton.addEventListener('click', (e) => {
 	if (projectControlElement.dataset.projectId) {
 		addTodoDialog.showModal();
 	}
+});
+
+addProjectButton.addEventListener('click', (e) => {
+	addProjectDialog.showModal();
 });
 
 renderProjectList();
