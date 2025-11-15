@@ -133,6 +133,10 @@ button {
 	background-color: var(--third-color);
 }
 
+.todo-title-div button {
+	margin-left: auto;
+}
+
 li {
 	list-style-type: none;
 	cursor: pointer;

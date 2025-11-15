@@ -19,25 +19,32 @@ function renderProjectList() {
 
 function createTodoCard(todoObj) {
 	const todoDiv = document.createElement('div');
-	todoDiv.classList.add('todo', 'p05');
+	todoDiv.classList.add('todo', 'p05', 'flex', 'column');
+	todoDiv.dataset.todoId = todoObj.id;
 
 	const todoTitle = document.createElement('h3');
+	const titleDiv = document.createElement('div');
 	const todoDescription = document.createElement('p');
 	const dueDate = document.createElement('p');
 	const priority = document.createElement('p');
 	const completedDiv = document.createElement('div');
 	const completedLabel = document.createElement('label');
 	const completedCheckbox = document.createElement('input');
+	const deleteBtn = document.createElement('button');
 
 	todoTitle.classList.add('py-05');
 	todoTitle.innerText = todoObj.title;
-	todoDescription.classList.add('py-05');
+	deleteBtn.innerText = 'Delete Task';
+	deleteBtn.classList.add('px-05', 'delete-todo-btn');
+	titleDiv.classList.add('flex', 'todo-title-div');
+	titleDiv.append(todoTitle, deleteBtn);
+	todoDescription.classList.add('py-05', 'flex');
 	todoDescription.innerText = todoObj.description;
-	dueDate.classList.add('py-05');
-	dueDate.innerText = todoObj.dueDate;
-	priority.classList.add('py-05');
+	dueDate.classList.add('py-05', 'flex');
+	dueDate.innerText = `Due ${todoObj.dueDate}`;
+	priority.classList.add('py-05', 'flex');
 	priority.innerText = `Priority: ${todoObj.priority}`;
-	completedDiv.classList.add('completed', 'py-05');
+	completedDiv.classList.add('completed', 'py-05', 'flex');
 	completedLabel.innerText = 'Complete';
 	completedCheckbox.type = 'checkbox';
 	completedCheckbox.name = 'complete-checkbox';
@@ -45,7 +52,7 @@ function createTodoCard(todoObj) {
 
 	completedLabel.appendChild(completedCheckbox);
 	completedDiv.append(completedLabel);
-	todoDiv.append(todoTitle, todoDescription, dueDate, priority, completedDiv);
+	todoDiv.append(titleDiv, todoDescription, dueDate, priority, completedDiv);
 	projectTodosElement.appendChild(todoDiv);
 }
 
@@ -120,6 +127,7 @@ addProjectDialog.addEventListener('close', () => {
 });
 
 addProjectForm.addEventListener('submit', (e) => {
+	// submitter property identifies the element that initiated a form submission
 	const clickedBtn = e.submitter;
 
 	if (clickedBtn.id === 'save-project') {
@@ -142,6 +150,20 @@ addTaskButton.addEventListener('click', (e) => {
 
 addProjectButton.addEventListener('click', (e) => {
 	addProjectDialog.showModal();
+});
+
+projectTodosElement.addEventListener('click', (e) => {
+	const clickedElement = e.target;
+
+	if (clickedElement.classList.contains('delete-todo-btn')) {
+		const todo = clickedElement.closest('.todo');
+		if (todo) {
+			const todoId = todo.dataset.todoId;
+			const projectId = projectControlElement.dataset.projectId;
+			projectController.deleteTodoFromProject(projectId, todoId);
+			renderProjectTodos(projectId);
+		}
+	}
 });
 
 renderProjectList();
