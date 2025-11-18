@@ -10,6 +10,10 @@ class ProjectController {
 		return this.dataManager.getProjects();
 	}
 
+	getTodo(projectId, todoId) {
+		return this.dataManager.findTodoById(projectId, todoId);
+	}
+
 	createProject(projectName) {
 		const newProject = new Project(projectName);
 		this.dataManager.addProject(newProject);

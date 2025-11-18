@@ -133,8 +133,12 @@ button {
 	background-color: var(--third-color);
 }
 
+.todo-title-div {
+	justify-content: space-between;
+}
+
 .todo-title-div button {
-	margin-left: auto;
+	margin: 0.25rem;
 }
 
 li {

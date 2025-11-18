@@ -65,6 +65,36 @@
 					</div>
 				</form>
 			</dialog>
+			<dialog class="dialog" id="edit-todo-dialog">
+				<form method="dialog" class="p1" id="edit-todo-form">
+					<div class="flex column py-05">
+						<label for="title">Title</label>
+						<input type="text" id="title" name="title" required />
+					</div>
+					<div class="flex column py-05">
+						<label for="description">Description</label>
+						<textarea name="description" id="description" cols="30" rows="5" required></textarea>
+					</div>
+					<div class="flex column py-05">
+						<label for="dueDate">Due Date</label>
+						<input type="date" id="dueDate" name="dueDate" required />
+					</div>
+					<div class="flex column py-05">
+						<label for="priority">Priority</label>
+						<select id="priority" name="priority" default="medium">
+							<option value="low">Low</option>
+							<option value="medium">Medium</option>
+							<option value="high">High</option>
+						</select>
+					</div>
+					<div class="flex py-1 form-btns">
+						<button type="submit" class="px-1 py-05" value="submit" id="save-todo">
+							Save Changes
+						</button>
+						<button type="button" id="cancel-save" class="px-1 py-05" value="cancel">Cancel</button>
+					</div>
+				</form>
+			</dialog>
 		</div>
 	</body>
 </html>

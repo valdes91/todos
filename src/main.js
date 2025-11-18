@@ -31,13 +31,19 @@ function createTodoCard(todoObj) {
 	const completedLabel = document.createElement('label');
 	const completedCheckbox = document.createElement('input');
 	const deleteBtn = document.createElement('button');
+	const editBtn = document.createElement('button');
+	const todoBtnDiv = document.createElement('div');
 
 	todoTitle.classList.add('py-05');
 	todoTitle.innerText = todoObj.title;
 	deleteBtn.innerText = 'Delete Task';
 	deleteBtn.classList.add('px-05', 'delete-todo-btn');
+	editBtn.innerText = 'Edit Task';
+	editBtn.classList.add('px-05', 'edit-todo-btn');
+	todoBtnDiv.classList.add('flex');
+	todoBtnDiv.append(deleteBtn, editBtn);
 	titleDiv.classList.add('flex', 'todo-title-div');
-	titleDiv.append(todoTitle, deleteBtn);
+	titleDiv.append(todoTitle, todoBtnDiv);
 	todoDescription.classList.add('py-05', 'flex');
 	todoDescription.innerText = todoObj.description;
 	dueDate.classList.add('py-05', 'flex');
@@ -75,6 +81,17 @@ function renderProjectTodos(projectID) {
 	}
 }
 
+function fillEditForm(todoToEdit) {
+	const titleInput = editTodoForm.querySelector('#title');
+	titleInput.value = todoToEdit.title;
+	const descriptionInput = editTodoForm.querySelector('#description');
+	descriptionInput.value = todoToEdit.description;
+	const dueDateInput = editTodoForm.querySelector('#dueDate');
+	dueDateInput.value = todoToEdit.dueDate;
+	const priorityInput = editTodoForm.querySelector('#priority');
+	priorityInput.value = todoToEdit.priority;
+}
+
 const dataManager = new DataManager();
 const projectController = new ProjectController(dataManager);
 const addProjectButton = document.getElementById('show-add-project-dialog');
@@ -88,7 +105,10 @@ const addTodoForm = document.querySelector('#add-todo-form');
 const cancelAddTodoBtn = document.querySelector('#cancel-todo');
 const addProjectDialog = document.querySelector('#add-project-dialog');
 const addProjectForm = document.querySelector('#add-project-form');
+const editTodoDialog = document.querySelector('#edit-todo-dialog');
+const editTodoForm = document.querySelector('#edit-todo-form');
 const cancelProjectBtn = document.querySelector('#cancel-project');
+const cancelEditBtn = document.querySelector('#cancel-save');
 
 projectListElement.addEventListener('click', (e) => {
 	const projectId = e.target.dataset.projectId;
@@ -97,6 +117,10 @@ projectListElement.addEventListener('click', (e) => {
 
 cancelAddTodoBtn.addEventListener('click', (e) => {
 	addTodoDialog.close();
+});
+
+cancelEditBtn.addEventListener('click', (e) => {
+	editTodoDialog.close();
 });
 
 addTodoDialog.addEventListener('close', () => {
@@ -126,6 +150,10 @@ addProjectDialog.addEventListener('close', () => {
 	addProjectForm.reset();
 });
 
+editTodoDialog.addEventListener('close', (e) => {
+	editTodoForm.reset();
+});
+
 addProjectForm.addEventListener('submit', (e) => {
 	// submitter property identifies the element that initiated a form submission
 	const clickedBtn = e.submitter;
@@ -140,6 +168,17 @@ addProjectForm.addEventListener('submit', (e) => {
 		renderProjectTodos(newProject.id);
 		addProjectDialog.close();
 	}
+});
+
+editTodoForm.addEventListener('submit', (e) => {
+	e.preventDefault();
+	const projectId = projectControlElement.dataset.projectId;
+	const formData = new FormData(editTodoForm);
+	const newTodoData = Object.fromEntries(formData.entries());
+	newTodoData.id = editTodoForm.dataset.todoId;
+	projectController.updateTodoInProject(projectId, newTodoData);
+	renderProjectTodos(projectId);
+	editTodoDialog.close();
 });
 
 addTaskButton.addEventListener('click', (e) => {
@@ -162,6 +201,16 @@ projectTodosElement.addEventListener('click', (e) => {
 			const projectId = projectControlElement.dataset.projectId;
 			projectController.deleteTodoFromProject(projectId, todoId);
 			renderProjectTodos(projectId);
+		}
+	} else if (clickedElement.classList.contains('edit-todo-btn')) {
+		const todo = clickedElement.closest('.todo');
+		if (todo) {
+			const todoId = todo.dataset.todoId;
+			const projectId = projectControlElement.dataset.projectId;
+			editTodoForm.dataset.todoId = todoId;
+			const todoToEdit = projectController.getTodo(projectId, todoId);
+			fillEditForm(todoToEdit);
+			editTodoDialog.showModal();
 		}
 	}
 });
